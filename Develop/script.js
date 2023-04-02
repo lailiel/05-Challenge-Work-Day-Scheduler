@@ -7,6 +7,7 @@
 $(function () {
 
   var save = $('.saveBtn');
+  var hourContainer = $('.container-lg px-5')
   
 
 
@@ -30,12 +31,22 @@ $(function () {
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
 
-  var currentHour = dayjs().format('H')
+  var currentHour = dayjs().format('hA')
+  var planHour = $('.container-lg px-5hourContainer').children()
 
-  // row time-block future
-  
+  for (var i = 0 ; i < $('.container-lg px-5hourContainer').children().length ; i++ ) {
+    if (planHour > currentHour) {
+      $('#MyElement').toggleClass('row time-block future');
+    } else if (planHour == currentHour) {
+      $('#MyElement').toggleClass('row time-block present');
+    }  else {
+        $('#MyElement').toggleClass('row time-block past');
+      }
+  }
 
-  
+
+
+
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
