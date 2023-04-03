@@ -6,9 +6,7 @@
 
 $(function () {
 
-  var save = $('.saveBtn');
-  var hourContainer = $('.container-lg px-5')
-  
+ 
 
 
   // TODO: Add a listener for click events on the save button. This code should
@@ -19,8 +17,14 @@ $(function () {
   // useful when saving the description in local storage?
 
  
-  save.on('click', function(){
-    
+  $('.saveBtn').on('click', function(){
+  
+    var text = $(this).parent().children().eq(2)
+    localStorage.setItem("key", text)
+    var key = $(this).parent().attr('id')
+
+    // rowThree.children().eq(0).text('O')
+
   })
 
 
@@ -34,13 +38,14 @@ $(function () {
   var currentHour = dayjs().format('hA')
   var planHour = $('.container-lg px-5hourContainer').children()
 
+  // this needs work. check the child stuff, fix the values for proper > = comparison
   for (var i = 0 ; i < $('.container-lg px-5hourContainer').children().length ; i++ ) {
     if (planHour > currentHour) {
-      $('#MyElement').toggleClass('row time-block future');
+      $(this).toggleClass('row time-block future');
     } else if (planHour == currentHour) {
-      $('#MyElement').toggleClass('row time-block present');
+      $(this).toggleClass('row time-block present');
     }  else {
-        $('#MyElement').toggleClass('row time-block past');
+        $(this).toggleClass('row time-block past');
       }
   }
 
