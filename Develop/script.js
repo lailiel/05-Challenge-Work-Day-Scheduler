@@ -6,7 +6,7 @@
 
 $(function () {
 
- 
+
 
 
   // TODO: Add a listener for click events on the save button. This code should
@@ -16,16 +16,14 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
 
- 
-  $('.saveBtn').on('click', function(){
-  
-    var text = $(this).parent().children().eq(2)
-    localStorage.setItem("key", text)
+
+
+  $('.saveBtn').on('click', function () {
+    var text = $(this).parent().children().eq(1).val()
     var key = $(this).parent().attr('id')
-
-    // rowThree.children().eq(0).text('O')
-
+    localStorage.setItem(key, text)
   })
+
 
 
   //
@@ -35,19 +33,20 @@ $(function () {
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
 
-  var currentHour = dayjs().format('hA')
-  var planHour = $('.container-lg px-5hourContainer').children()
 
-  // this needs work. check the child stuff, fix the values for proper > = comparison
-  for (var i = 0 ; i < $('.container-lg px-5hourContainer').children().length ; i++ ) {
-    if (planHour > currentHour) {
-      $(this).toggleClass('row time-block future');
-    } else if (planHour == currentHour) {
-      $(this).toggleClass('row time-block present');
-    }  else {
-        $(this).toggleClass('row time-block past');
-      }
-  }
+  $('.container-lg').children().each(function () {
+    var currentHour = dayjs().format('H')
+    var blockID = $(this).attr('id').split('-')[1];
+    var planHour = parseInt(blockID)
+
+    if (planHour == currentHour) {
+      $(this).addClass('present');
+    } else if (planHour < currentHour) {
+      $(this).addClass('past');
+    } else {
+      $(this).addClass('future')
+    }
+  })
 
 
 
@@ -56,6 +55,14 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
+
+  // pull local storage data first so schedule loads first
+  $('.container-lg').children().each(function () {
+    var key = $(this).attr('id')
+    var storedText = localStorage.getItem(key)
+    if (storedText != null)
+      $(this).children().eq(1).val(storedText)
+  })
 
 
   // TODO: Add code to display the current date in the header of the page.
