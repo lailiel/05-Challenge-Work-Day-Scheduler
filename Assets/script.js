@@ -32,5 +32,11 @@ $(function () {
     $('#currentDay').text(today.format('dddd, MMMM D'));
   }
   setInterval(date, 1000);
+
+  $('.button').on('click', function (){
+    localStorage.clear()
+    location.reload()
+    
+  })
 });
 
