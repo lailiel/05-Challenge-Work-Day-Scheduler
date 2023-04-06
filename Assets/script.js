@@ -7,7 +7,7 @@ $(function () {
   })
 
   $('.container-lg').children().each(function () {
-    var currentHour = 10
+    var currentHour = dayjs().format('H')
     var blockID = $(this).attr('id').split('-')[1];
     var planHour = parseInt(blockID)
 
